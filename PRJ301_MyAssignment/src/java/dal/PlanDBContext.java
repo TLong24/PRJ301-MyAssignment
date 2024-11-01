@@ -121,18 +121,18 @@ public class PlanDBContext extends DBContext<Plan> {
         List<Plan> plans = new ArrayList<>();
         String sql = "SELECT p.[plid], p.[start], p.[end], d.[did], d.dname \n"
                 + "FROM [dbo].[Plan] p\n"
-                + "join [dbo].[Department] d on p.did = d.did\n"
+                + "JOIN [dbo].[Department] d ON p.did = d.did\n"
                 + "WHERE 1=1";
 
         if (p.getPlId() != null) {
-            sql += " AND plid = ?";
+            sql += " AND p.plid = ?";
         }
 
         if (p.getStart() != null) {
-            sql += " AND [start] >= ?";
+            sql += " AND p.[start] >= ?";
         }
         if (p.getEnd() != null) {
-            sql += " AND [end] <= ?";
+            sql += " AND p.[end] <= ?";
         }
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -156,7 +156,7 @@ public class PlanDBContext extends DBContext<Plan> {
                 pl.setStart(rs.getDate("start"));
                 pl.setEnd(rs.getDate("end"));
                 pl.setDept(new Department(rs.getInt("did"), rs.getString("dname"), null));
-                plans.add(p);
+                plans.add(pl);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PlanDBContext.class.getName()).log(Level.SEVERE, null, ex);

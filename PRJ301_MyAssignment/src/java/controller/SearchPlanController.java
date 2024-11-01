@@ -5,6 +5,7 @@
 package controller;
 
 import dal.PlanDBContext;
+import model.Plan;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,8 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Plan;
-import java.sql.*;
+import java.sql.Date;
 
 /**
  *
@@ -78,20 +78,26 @@ public class SearchPlanController extends HttpServlet {
         String planIdStr = request.getParameter("planId");
         Integer planId = null;
 
-        if(planIdStr != null && !planIdStr.isBlank()) {
-            planId = Integer.valueOf(planIdStr);
+        // Kiểm tra nếu Plan ID là một số nguyên hợp lệ
+        if (planIdStr != null && !planIdStr.isBlank()) {
+            try {
+                planId = Integer.valueOf(planIdStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Invalid Plan ID. Please enter a valid integer.");
+                request.getRequestDispatcher("search.jsp").forward(request, response);
+                return;
+            }
         }
 
         Date startDate = null;
-        if(request.getParameter("startDate") != null && !request.getParameter("startDate").isBlank()) {
+        if (request.getParameter("startDate") != null && !request.getParameter("startDate").isBlank()) {
             startDate = Date.valueOf(request.getParameter("startDate"));
         }
-        
+
         Date endDate = null;
-        if(request.getParameter("endDate") != null && !request.getParameter("endDate").isBlank()) {
+        if (request.getParameter("endDate") != null && !request.getParameter("endDate").isBlank()) {
             endDate = Date.valueOf(request.getParameter("endDate"));
         }
-
 
         Plan searchCiteria = new Plan(planId, null, startDate, endDate);
 
