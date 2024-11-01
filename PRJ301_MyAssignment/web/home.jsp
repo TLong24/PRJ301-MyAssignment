@@ -91,9 +91,9 @@
         </div>
         <div class="content">
             <div class="action-buttons">
-                <a href="plan/create" class="action-button">Add New Record</a>
-                <a href="search.jsp" class="action-button">Search Records</a>
-                <a href="update.jsp" class="action-button">Update Records</a>
+                <a href="plan/create" class="action-button">Add</a>
+                <a href="search.jsp" class="action-button">Search</a>
+                <a href="update.jsp" class="action-button">Update</a>
             </div>
             <div class="table-container">
                 <table>

@@ -30,11 +30,11 @@
                     <td>Estimated Effort</td>
                 </tr>
                 <c:forEach items="${requestScope.products}" var="p">
-                <tr>
-                    <td>${p.pname}<input type="hidden" name="pid" value="${p.pid}"/></td>
-                    <td><input type="text" name="quantity${p.pid}"/></td>
-                    <td><input type="text" name="effort${p.pid}"/></td>
-                </tr>   
+                    <tr>
+                        <td>${p.pname}<input type="hidden" name="pid" value="${p.pid}"/></td>
+                        <td><input type="number" name="quantity${p.pid}" min="0" step="1"/></td>
+                        <td><input type="number" name="effort${p.pid}" min="0" step="0.1"/></td>
+                    </tr>   
                 </c:forEach>
             </table>
             <input type="submit" name="Save"/>

@@ -85,13 +85,35 @@ public class ProductionPlanCreateController extends HttpServlet {
             throws ServletException, IOException {
         String[] pids = request.getParameterValues("pid");
 
+        if (pids == null) {
+            request.setAttribute("message", "No products were selected. Please select at least one product.");
+            request.getRequestDispatcher("../insertPlan.jsp").forward(request, response);
+            return;
+        }
+
         Plan plan = new Plan();
-        plan.setStart(Date.valueOf(request.getParameter("from")));
-        plan.setEnd(Date.valueOf(request.getParameter("to")));
+
+        try {
+            if (request.getParameter("from") != null && !request.getParameter("from").isBlank()) {
+                plan.setStart(Date.valueOf(request.getParameter("from")));
+            }
+            if (request.getParameter("to") != null && !request.getParameter("to").isBlank()) {
+                plan.setEnd(Date.valueOf(request.getParameter("to")));
+            }
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("message", "Invalid date format. Please enter a valid date.");
+            request.getRequestDispatcher("../insertPlan.jsp").forward(request, response);
+            return;
+        }
 
         Department d = new Department();
-        d.setDid(Integer.parseInt(request.getParameter("did")));
-
+        try {
+            d.setDid(Integer.parseInt(request.getParameter("did")));
+        } catch (NumberFormatException e) {
+            request.setAttribute("message", "Invalid department ID. Please select a valid department.");
+            request.getRequestDispatcher("../insertPlan.jsp").forward(request, response);
+            return;
+        }
         plan.setDept(d);
         plan.setCampains(new ArrayList<>());
 
@@ -101,10 +123,22 @@ public class ProductionPlanCreateController extends HttpServlet {
 
             PlanCampain c = new PlanCampain();
             c.setProduct(p);
+
             String raw_quantity = request.getParameter("quantity" + pid);
             String raw_effort = request.getParameter("effort" + pid);
-            c.setQuantity(raw_quantity != null && raw_quantity.length() > 0 ? Integer.parseInt(raw_quantity) : 0);
-            c.setEstimatedeffort(raw_effort != null && raw_effort.length() > 0 ? Float.parseFloat(raw_effort) : 0);
+
+            try {
+                c.setQuantity(raw_quantity != null && !raw_quantity.isBlank() ? Integer.parseInt(raw_quantity) : 0);
+            } catch (NumberFormatException e) {
+                c.setQuantity(0);
+            }
+
+            try {
+                c.setEstimatedeffort(raw_effort != null && !raw_effort.isBlank() ? Float.parseFloat(raw_effort) : 0);
+            } catch (NumberFormatException e) {
+                c.setEstimatedeffort(0);
+            }
+            
             c.setPlan(plan);
             if (c.getQuantity() != 0 && c.getEstimatedeffort() != 0) {
                 plan.getCampains().add(c);
