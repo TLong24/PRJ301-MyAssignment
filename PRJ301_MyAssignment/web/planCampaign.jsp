@@ -61,6 +61,36 @@
             }
         </style>
     </head>
+    <!--    <body>
+            <div class="header">
+                <h1>Plan Campaign List</h1>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaign ID </th>
+                            <th>Plan ID </th>
+                            <th>Product Name </th>
+                            <th>Quantity</th>
+                            <th>Estimated Effort</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    <c:forEach var="campaign" items="${requestScope.campaigns}">
+        <tr>
+            <td>${campaign.camid}</td>
+            <td>${campaign.plan.plId}</td>
+            <td>${campaign.product.pname}</td>
+            <td>${campaign.quantity}</td>
+            <td>${campaign.estimatedeffort}</td>
+        </tr>
+    </c:forEach>
+</tbody>
+</table>
+</div>
+</body>-->
+
     <body>
         <div class="header">
             <h1>Plan Campaign List</h1>
@@ -69,11 +99,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Campaign ID </th>
-                        <th>Plan ID </th>
-                        <th>Product Name </th>
+                        <th>Campaign ID</th>
+                        <th>Plan ID</th>
+                        <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Estimated Effort</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,10 +115,43 @@
                             <td>${campaign.product.pname}</td>
                             <td>${campaign.quantity}</td>
                             <td>${campaign.estimatedeffort}</td>
+                            <td>
+                                <a href="editCampaign?camid=${campaign.camid}" class="action-button edit-button">Edit</a>
+                                <a href="deleteCampaign?camid=${campaign.camid}" class="action-button delete-button">Delete</a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
+
+        <style>
+            /* Styling for action buttons */
+            .action-button {
+                padding: 5px 10px;
+                border: none;
+                text-decoration: none;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .edit-button {
+                background-color: #4CAF50; /* Green */
+            }
+
+            .edit-button:hover {
+                background-color: #45a049;
+            }
+
+            .delete-button {
+                background-color: #f44336; /* Red */
+            }
+
+            .delete-button:hover {
+                background-color: #e53935;
+            }
+        </style>
     </body>
 </html>

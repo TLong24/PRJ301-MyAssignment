@@ -65,7 +65,6 @@ public class UpdatePlanController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         // Fetch list of departments
         DepartmentDBContext departmentDB = new DepartmentDBContext();
         List<Department> departments = departmentDB.getDepartment("WS");
@@ -88,13 +87,49 @@ public class UpdatePlanController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get plan details from request
-        int plid = Integer.parseInt(request.getParameter("plid"));
-        Date start = Date.valueOf(request.getParameter("start"));
-        Date end = Date.valueOf(request.getParameter("end"));
-        int did = Integer.parseInt(request.getParameter("did"));
+        
+        // Fetch list of departments
+        DepartmentDBContext departmentDB = new DepartmentDBContext();
+        List<Department> departments = departmentDB.getDepartment("WS");
 
-        // Create plan object
+        // Set attributes for JSP
+        request.setAttribute("departments", departments);
+
+        // Kiểm tra và lấy thông tin từ request
+        String rawPlid = request.getParameter("plid");
+        request.setAttribute("plid", rawPlid);
+        String rawStart = request.getParameter("start");
+        request.setAttribute("start", rawStart);
+        String rawEnd = request.getParameter("end");
+        request.setAttribute("end", rawEnd);
+        String rawDid = request.getParameter("did");
+        request.setAttribute("did", rawDid);
+        
+
+        // Kiểm tra các trường bắt buộc
+        if (rawPlid == null || rawPlid.isBlank()
+                || rawStart == null || rawStart.isBlank()
+                || rawEnd == null || rawEnd.isBlank()
+                || rawDid == null || rawDid.isBlank()) {
+            request.setAttribute("error", "Please ensure all fields are filled.");
+            request.getRequestDispatcher("updatePlan.jsp").forward(request, response);
+        }
+
+        int plid = Integer.parseInt(rawPlid);
+        Date start = Date.valueOf(rawStart);
+        Date end = Date.valueOf(rawEnd);
+        int did = Integer.parseInt(rawDid);
+
+        // Kiểm tra xem plan có tồn tại hay không
+        PlanDBContext planDB = new PlanDBContext();
+        Plan existingPlan = planDB.get(plid);
+
+        if (existingPlan == null) {
+            request.setAttribute("error", "Invalid Plan Id (not found)");
+            request.getRequestDispatcher("updatePlan.jsp").forward(request, response);
+        }
+
+        // Tạo đối tượng plan
         Plan plan = new Plan();
         plan.setPlId(plid);
         plan.setStart(start);
@@ -103,13 +138,17 @@ public class UpdatePlanController extends HttpServlet {
         Department department = new Department();
         department.setDid(did);
         plan.setDept(department);
-
-        // Update plan in DB
-        PlanDBContext planDB = new PlanDBContext();
-        planDB.update(plan);
-
-        // Redirect to home page after update
-        response.sendRedirect("home.jsp");
+        // Cập nhật plan trong DB
+        
+        try {
+            PlanDBContext db =new PlanDBContext();
+            db.update(plan);
+            // Nếu không xảy ra ngoại lệ, cập nhật thành công
+            response.sendRedirect(request.getContextPath() + "/listplan");
+        } catch (IOException e) {
+            request.setAttribute("error", "Update failed! Please try again.");
+            request.getRequestDispatcher("updatePlan.jsp").forward(request, response);
+        }
     }
 
     /**

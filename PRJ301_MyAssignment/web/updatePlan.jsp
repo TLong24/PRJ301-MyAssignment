@@ -77,25 +77,29 @@
             <form action="updatePlan" method="POST">
                 <div class="form-group">
                     <label for="plid">Plan ID:</label>
-                    <input type="text" id="plid" name="plid" value="${plan.plId}" required />
+                    <input type="text" id="plid" name="plid" value="${requestScope.plid}" required />
                 </div>
                 <div class="form-group">
                     <label for="start">Start Date:</label>
-                    <input type="date" id="start" name="start" value="${plan.start}" required />
+                    <input type="date" id="start" name="start" value="${requestScope.start}" required />
                 </div>
                 <div class="form-group">
                     <label for="end">End Date:</label>
-                    <input type="date" id="end" name="end" value="${plan.end}" required />
+                    <input type="date" id="end" name="end" value="${requestScope.end}" required />
                 </div>
                 <div class="form-group">
                     <label for="did">Department:</label>
                     <select id="did" name="did" required>
                         <c:forEach var="dept" items="${requestScope.departments}">
                             <option 
-                                value="${dept.did}">${dept.dname}
-                            </option>
+                                value="${dept.did}"
+                                <c:if test="${dept.did == requestScope.did}">selected</c:if>>${dept.dname}
+                                </option>
                         </c:forEach>
                     </select>
+                </div>
+                <div>
+                    ${requestScope.error}
                 </div>
                 <button type="submit" class="update-button">Update Plan</button>
             </form>

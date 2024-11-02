@@ -8,6 +8,10 @@
         <servlet-name>UpdatePlanController</servlet-name>
         <servlet-class>controller.UpdatePlanController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditCampaign</servlet-name>
+        <servlet-class>controller.EditCampaign</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductionPlanCreateController</servlet-name>
         <url-pattern>/plan/create</url-pattern>
@@ -23,5 +27,9 @@
     <servlet-mapping>
         <servlet-name>UpdatePlanController</servlet-name>
         <url-pattern>/updatePlan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCampaign</servlet-name>
+        <url-pattern>/editCampaign</url-pattern>
     </servlet-mapping>
 </web-app>
