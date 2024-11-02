@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -63,19 +64,13 @@ public class UpdatePlanController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get plan id from request
-        int plid = Integer.parseInt(request.getParameter("plid"));
 
-        // Fetch plan details from DB
-        PlanDBContext planDB = new PlanDBContext();
-        Plan plan = planDB.get(plid);
 
         // Fetch list of departments
         DepartmentDBContext departmentDB = new DepartmentDBContext();
-        ArrayList<Department> departments = departmentDB.list();
+        List<Department> departments = departmentDB.getDepartment("WS");
 
         // Set attributes for JSP
-        request.setAttribute("plan", plan);
         request.setAttribute("departments", departments);
 
         // Forward to updatePlan.jsp

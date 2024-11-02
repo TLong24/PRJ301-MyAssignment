@@ -106,14 +106,14 @@
         <div class="header">
             <h1>Welcome to the Home Page</h1>
             <div class="nav">
-                <a href="planCampaign.jsp">Plan Campaign</a>
+                <a href="PlanCampaignController" class="action">View Campaign</a>
             </div>
         </div>
         <div class="content">
             <div class="action-buttons">
                 <a href="plan/create" class="action-button">Add</a>
                 <a href="search.jsp" class="action-button">Search</a>
-                <a href="updatePlan.jsp" class="action-button">Update</a>
+                <a href="updatePlan" class="action-button">Update</a>
             </div>
             <div class="table-container">
                 <table>
@@ -122,7 +122,7 @@
                             <th>Plan ID</th>
                             <th>Start</th>
                             <th>End</th>
-                            <th>Department ID (DID)</th>
+                            <th>Department ID</th>
                         </tr>
                     </thead>
                     <tbody>

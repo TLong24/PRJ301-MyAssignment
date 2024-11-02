@@ -30,7 +30,7 @@
             }
             .content {
                 margin-top: 30px;
-                width: 80%;
+                width: 50%;
                 background-color: #ffffff;
                 padding: 20px;
                 border-radius: 10px;
@@ -39,14 +39,21 @@
             }
             .form-group {
                 margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
             }
             .form-group label {
-                margin-right: 10px;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #4CAF50;
             }
             .form-group input, .form-group select {
                 padding: 10px;
                 width: 100%;
                 max-width: 400px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
             }
             .update-button {
                 padding: 10px 20px;
@@ -55,6 +62,7 @@
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
+                margin-top: 20px;
             }
             .update-button:hover {
                 background-color: #007bb5;
@@ -66,8 +74,11 @@
             <h1>Update Plan</h1>
         </div>
         <div class="content">
-            <form action="UpdatePlanController" method="POST">
-                <input type="hidden" name="plid" value="${plan.plId}" />
+            <form action="updatePlan" method="POST">
+                <div class="form-group">
+                    <label for="plid">Plan ID:</label>
+                    <input type="text" id="plid" name="plid" value="${plan.plId}" required />
+                </div>
                 <div class="form-group">
                     <label for="start">Start Date:</label>
                     <input type="date" id="start" name="start" value="${plan.start}" required />
@@ -80,7 +91,9 @@
                     <label for="did">Department:</label>
                     <select id="did" name="did" required>
                         <c:forEach var="dept" items="${requestScope.departments}">
-                            <option value="${dept.did}" <c:if test="${dept.did == plan.dept.did}">selected</c:if>>${dept.dname}</option>
+                            <option 
+                                value="${dept.did}">${dept.dname}
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
@@ -89,4 +102,5 @@
         </div>
     </body>
 </html>
+
 

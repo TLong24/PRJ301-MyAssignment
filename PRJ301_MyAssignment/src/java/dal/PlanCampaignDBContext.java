@@ -34,15 +34,17 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
     @Override
     public ArrayList<PlanCampaign> list() {
         ArrayList<PlanCampaign> campaigns = new ArrayList<>();
-        String sql = "SELECT [camid]\n"
-                + "      ,[plid]\n"
-                + "      ,[pid]\n"
-                + "      ,[quantity]\n"
-                + "      ,[estimatedeffort]\n"
-                + "  FROM [dbo].[PlanCampaign]";
+        String sql = "SELECT pc.[camid]\n"
+                + "      ,pc.[plid]\n"
+                + "      ,pc.[pid]\n"
+                + "      ,pc.[quantity]\n"
+                + "      ,pc.[estimatedeffort]\n"
+                + "	  ,pro.pname\n"
+                + "  FROM [dbo].[PlanCampaign] pc\n"
+                + "  JOIN [dbo].[Product] pro ON pc.pid = pro.pid";
         try (
-                PreparedStatement preparedStatement = connection.prepareStatement(sql); ResultSet rs = preparedStatement.executeQuery()) {
-
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 PlanCampaign campaign = new PlanCampaign();
                 campaign.setCamid(rs.getInt("camid"));
@@ -53,6 +55,7 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
 
                 Product pro = new Product();
                 pro.setPid(rs.getInt("pid"));
+                pro.setPname(rs.getString("pname"));
                 campaign.setProduct(pro);
 
                 campaign.setQuantity(rs.getInt("quantity"));
@@ -65,7 +68,7 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
         } finally {
             try {
                 connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
             }
         }
         return campaigns;
@@ -74,6 +77,14 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
     @Override
     public PlanCampaign get(int camid) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public static void main(String[] args) {
+        PlanCampaignDBContext d = new PlanCampaignDBContext();
+        ArrayList<PlanCampaign> n = d.list();
+        for (PlanCampaign p : n) {
+            System.out.println(p.getCamid());
+        }
     }
 
 }

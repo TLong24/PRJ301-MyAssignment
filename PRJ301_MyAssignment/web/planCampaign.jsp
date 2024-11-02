@@ -71,7 +71,7 @@
                     <tr>
                         <th>Campaign ID </th>
                         <th>Plan ID </th>
-                        <th>Product ID </th>
+                        <th>Product Name </th>
                         <th>Quantity</th>
                         <th>Estimated Effort</th>
                     </tr>
@@ -81,7 +81,7 @@
                         <tr>
                             <td>${campaign.camid}</td>
                             <td>${campaign.plan.plId}</td>
-                            <td>${campaign.product.pid}</td>
+                            <td>${campaign.product.pname}</td>
                             <td>${campaign.quantity}</td>
                             <td>${campaign.estimatedeffort}</td>
                         </tr>

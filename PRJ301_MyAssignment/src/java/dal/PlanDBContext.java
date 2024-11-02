@@ -26,8 +26,7 @@ public class PlanDBContext extends DBContext<Plan> {
                 + "  join [dbo].[Department] d on p.did = d.did";
 
         try (
-                PreparedStatement preparedStatement = connection.prepareStatement(sql); 
-                ResultSet resultSet = preparedStatement.executeQuery()) {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql); ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 Integer plId = resultSet.getInt("plid");
@@ -167,8 +166,31 @@ public class PlanDBContext extends DBContext<Plan> {
     }
 
     @Override
-    public void update(Plan model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Plan plan) {
+        String sql = "UPDATE [Plan] SET [start] = ?, [end] = ?, [did] = ? WHERE [plid] = ?";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setDate(1, plan.getStart());
+            stm.setDate(2, plan.getEnd());
+            stm.setInt(3, plan.getDept().getDid());
+            stm.setInt(4, plan.getPlId());
+
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -183,7 +205,41 @@ public class PlanDBContext extends DBContext<Plan> {
 
     @Override
     public Plan get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT plid, [start], [end] FROM [dbo].[Plan] WHERE plid = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Plan plan = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                plan = new Plan();
+                plan.setPlId(rs.getInt("plid"));
+                plan.setStart(rs.getDate("start"));
+                plan.setEnd(rs.getDate("end"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return plan;
     }
 
 }
