@@ -4,8 +4,24 @@
         <servlet-name>ProductionPlanCreateController</servlet-name>
         <servlet-class>controller.ProductionPlanCreateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePlanController</servlet-name>
+        <servlet-class>controller.UpdatePlanController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductionPlanCreateController</servlet-name>
         <url-pattern>/plan/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PlanCampaignController</servlet-name>
+        <servlet-class>controller.PlanCampaignController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PlanCampaignController</servlet-name>
+        <url-pattern>/PlanCampaignController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePlanController</servlet-name>
+        <url-pattern>/updatePlan</url-pattern>
     </servlet-mapping>
 </web-app>

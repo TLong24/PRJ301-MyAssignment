@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package feature;
+package controller;
 
-import dal.PlanDBContext;
+import dal.PlanCampaignDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,16 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Plan;
-import dal.PlanDBContext;
+import java.util.ArrayList;
+import model.PlanCampaign;
 
 /**
  *
  * @author nlong
  */
-@WebServlet(name="listPlan", urlPatterns={"/listplan"})
-public class listPlan extends HttpServlet {
+@WebServlet(name="PlanCampaignController", urlPatterns={"/planCampaign"})
+public class PlanCampaignController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +38,10 @@ public class listPlan extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet listPlan</title>");  
+            out.println("<title>Servlet PlanCampaignController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet listPlan at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet PlanCampaignController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,11 +71,11 @@ public class listPlan extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        PlanDBContext db = new PlanDBContext();
-        List<Plan> listPlan = db.getPlans();
+        PlanCampaignDBContext dbContext = new PlanCampaignDBContext();
+        ArrayList<PlanCampaign> campaigns = dbContext.list();
         
-        request.setAttribute("listPlan", listPlan);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        request.setAttribute("campaigns", campaigns);
+        request.getRequestDispatcher("../planCampaign.jsp").forward(request, response);
     }
 
     /** 

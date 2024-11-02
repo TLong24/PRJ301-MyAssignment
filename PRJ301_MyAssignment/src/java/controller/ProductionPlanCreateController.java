@@ -17,7 +17,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import model.Department;
 import model.Plan;
-import model.PlanCampain;
+import model.PlanCampaign;
 import model.Product;
 
 /**
@@ -121,7 +121,7 @@ public class ProductionPlanCreateController extends HttpServlet {
             Product p = new Product();
             p.setPid(Integer.parseInt(pid));
 
-            PlanCampain c = new PlanCampain();
+            PlanCampaign c = new PlanCampaign();
             c.setProduct(p);
 
             String raw_quantity = request.getParameter("quantity" + pid);
@@ -136,9 +136,9 @@ public class ProductionPlanCreateController extends HttpServlet {
             try {
                 c.setEstimatedeffort(raw_effort != null && !raw_effort.isBlank() ? Float.parseFloat(raw_effort) : 0);
             } catch (NumberFormatException e) {
-                c.setEstimatedeffort(0);
+                c.setEstimatedeffort(Float.valueOf(0));
             }
-            
+
             c.setPlan(plan);
             if (c.getQuantity() != 0 && c.getEstimatedeffort() != 0) {
                 plan.getCampains().add(c);

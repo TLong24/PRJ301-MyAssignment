@@ -27,6 +27,23 @@
                 color: white;
                 padding: 15px;
                 text-align: center;
+                position: relative;
+            }
+            .header .nav {
+                position: absolute;
+                top: 50%;
+                right: 50px;
+                transform: translateY(-50%);
+                display: flex;
+                gap: 15px;
+            }
+            .header .nav a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            .header .nav a:hover {
+                text-decoration: underline;
             }
             .content {
                 margin-top: 30px;
@@ -88,12 +105,15 @@
     <body>
         <div class="header">
             <h1>Welcome to the Home Page</h1>
+            <div class="nav">
+                <a href="planCampaign.jsp">Plan Campaign</a>
+            </div>
         </div>
         <div class="content">
             <div class="action-buttons">
                 <a href="plan/create" class="action-button">Add</a>
                 <a href="search.jsp" class="action-button">Search</a>
-                <a href="update.jsp" class="action-button">Update</a>
+                <a href="updatePlan.jsp" class="action-button">Update</a>
             </div>
             <div class="table-container">
                 <table>
@@ -120,4 +140,3 @@
         </div>
     </body>
 </html>
-

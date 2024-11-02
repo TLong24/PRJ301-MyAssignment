@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Department;
-import model.PlanCampain;
+import model.PlanCampaign;
 
 /**
  *
@@ -26,7 +26,8 @@ public class PlanDBContext extends DBContext<Plan> {
                 + "  join [dbo].[Department] d on p.did = d.did";
 
         try (
-                PreparedStatement preparedStatement = connection.prepareStatement(sql); ResultSet resultSet = preparedStatement.executeQuery()) {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql); 
+                ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 Integer plId = resultSet.getInt("plid");
@@ -87,7 +88,7 @@ public class PlanDBContext extends DBContext<Plan> {
             if (rs.next()) {
                 model.setPlId(rs.getInt("plid"));
             }
-            for (PlanCampain campain : model.getCampains()) {
+            for (PlanCampaign campain : model.getCampains()) {
                 PreparedStatement stm_insert_campain = connection.prepareStatement(sql_insert_campain);
                 stm_insert_campain.setInt(1, model.getPlId());
                 stm_insert_campain.setInt(2, campain.getProduct().getPid());

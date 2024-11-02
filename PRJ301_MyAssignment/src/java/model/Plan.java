@@ -28,7 +28,7 @@ public class Plan {
         this.end = end;
     }
 
-    private ArrayList<PlanCampain> campains = new ArrayList<>();
+    private ArrayList<PlanCampaign> campains = new ArrayList<>();
 
     public Integer getPlId() {
         return plId;
@@ -62,11 +62,11 @@ public class Plan {
         this.end = end;
     }
 
-    public ArrayList<PlanCampain> getCampains() {
+    public ArrayList<PlanCampaign> getCampains() {
         return campains;
     }
 
-    public void setCampains(ArrayList<PlanCampain> campains) {
+    public void setCampains(ArrayList<PlanCampaign> campains) {
         this.campains = campains;
     }
 

@@ -8,30 +8,30 @@ package model;
  *
  * @author nlong
  */
-public class PlanCampain {
-    private Integer id;
+public class PlanCampaign {
+    private Integer camid;
     private Plan plan;
     private Product product;
     private Integer quantity;
     private Float estimatedeffort;
 
-    public PlanCampain() {
+    public PlanCampaign() {
     }
 
-    public PlanCampain(Integer id, Plan plan, Product product, Integer quantity, float estimatedeffort) {
-        this.id = id;
+    public PlanCampaign(Integer camid, Plan plan, Product product, Integer quantity, Float estimatedeffort) {
+        this.camid = camid;
         this.plan = plan;
         this.product = product;
         this.quantity = quantity;
         this.estimatedeffort = estimatedeffort;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCamid() {
+        return camid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCamid(Integer camid) {
+        this.camid = camid;
     }
 
     public Plan getPlan() {
@@ -58,13 +58,14 @@ public class PlanCampain {
         this.quantity = quantity;
     }
 
-    public float getEstimatedeffort() {
+    public Float getEstimatedeffort() {
         return estimatedeffort;
     }
 
-    public void setEstimatedeffort(float estimatedeffort) {
+    public void setEstimatedeffort(Float estimatedeffort) {
         this.estimatedeffort = estimatedeffort;
     }
+
     
     
 }
