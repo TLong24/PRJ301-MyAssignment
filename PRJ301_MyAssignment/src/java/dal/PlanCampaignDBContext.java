@@ -136,4 +136,23 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
         return campaign;
     }
 
+    public boolean hasChildren(int camid) {
+        String sql = "SELECT [camid]\n"
+                + "      ,[date]\n"
+                + "      ,[shift]\n"
+                + "      ,[quantity]\n"
+                + "      ,[scid_new]\n"
+                + "  FROM [dbo].[ScheduleCampain]\n"
+                + "  WHERE camid = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, camid);
+            ResultSet rs = stm.executeQuery();
+
+            return rs.next();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PlanCampaignDBContext.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+
 }

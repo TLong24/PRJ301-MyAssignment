@@ -10,11 +10,15 @@
     </servlet>
     <servlet>
         <servlet-name>EditCampaign</servlet-name>
-        <servlet-class>controller.EditCampaign</servlet-class>
+        <servlet-class>controller.EditPlanCampaignController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCampaign</servlet-name>
-        <servlet-class>controller.DeleteCampaign</servlet-class>
+        <servlet-class>controller.DeletePlanCampaignController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.accesscontrol.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductionPlanCreateController</servlet-name>
@@ -39,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>DeleteCampaign</servlet-name>
         <url-pattern>/deleteCampaign</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>

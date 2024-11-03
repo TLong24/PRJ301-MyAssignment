@@ -2,27 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package model.accesscontrol;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author nlong
+ * @author longnt
  */
 public class User {
     private Integer uid;
-    String username;
-    String password;
-    boolean isLocked;
+    private String username;
+    private String password;
+    private boolean isLocked;
 
-    public User() {
-    }
-
-    public User(Integer uid, String username, String password, boolean isLocked) {
-        this.uid = uid;
-        this.username = username;
-        this.password = password;
-        this.isLocked = isLocked;
-    }
+    private List<Feature> feature = new ArrayList<>();
 
     public Integer getUid() {
         return uid;
@@ -55,6 +50,12 @@ public class User {
     public void setIsLocked(boolean isLocked) {
         this.isLocked = isLocked;
     }
-    
-    
+
+    public List<Feature> getFeature() {
+        return feature;
+    }
+
+    public void setFeature(List<Feature> feature) {
+        this.feature = feature;
+    }
 }

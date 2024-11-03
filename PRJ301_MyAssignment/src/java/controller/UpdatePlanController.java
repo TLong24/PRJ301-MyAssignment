@@ -4,6 +4,7 @@
  */
 package controller;
 
+import controller.accesscontrol.BaseRBACController;
 import dal.DepartmentDBContext;
 import dal.PlanDBContext;
 import model.Department;
@@ -17,55 +18,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
+import model.accesscontrol.User;
 
 /**
  *
  * @author nlong
  */
-public class UpdatePlanController extends HttpServlet {
+public class UpdatePlanController extends BaseRBACController {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdatePlanController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdatePlanController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        // Fetch list of departments
+    protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User loggeduser) throws ServletException, IOException {
+// Fetch list of departments
         DepartmentDBContext departmentDB = new DepartmentDBContext();
         List<Department> departments = departmentDB.getDepartment("WS");
 
@@ -76,19 +40,9 @@ public class UpdatePlanController extends HttpServlet {
         request.getRequestDispatcher("updatePlan.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        // Fetch list of departments
+    protected void doAuthorizedPost(HttpServletRequest request, HttpServletResponse response, User loggeduser) throws ServletException, IOException {
+// Fetch list of departments
         DepartmentDBContext departmentDB = new DepartmentDBContext();
         List<Department> departments = departmentDB.getDepartment("WS");
 
@@ -104,7 +58,6 @@ public class UpdatePlanController extends HttpServlet {
         request.setAttribute("end", rawEnd);
         String rawDid = request.getParameter("did");
         request.setAttribute("did", rawDid);
-        
 
         // Kiểm tra các trường bắt buộc
         if (rawPlid == null || rawPlid.isBlank()
@@ -139,9 +92,9 @@ public class UpdatePlanController extends HttpServlet {
         department.setDid(did);
         plan.setDept(department);
         // Cập nhật plan trong DB
-        
+
         try {
-            PlanDBContext db =new PlanDBContext();
+            PlanDBContext db = new PlanDBContext();
             db.update(plan);
             // Nếu không xảy ra ngoại lệ, cập nhật thành công
             response.sendRedirect(request.getContextPath() + "/listplan");
@@ -150,15 +103,5 @@ public class UpdatePlanController extends HttpServlet {
             request.getRequestDispatcher("updatePlan.jsp").forward(request, response);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

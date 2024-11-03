@@ -2,46 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.accesscontrol;
 
-import dal.PlanDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Plan;
-import dal.PlanDBContext;
 
 /**
  *
- * @author nlong
+ * @author sonnt-local hand-some
  */
-@WebServlet(name = "listPlan", urlPatterns = {"/listplan"})
-public class listPlan extends HttpServlet {
+public class LogoutController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        PlanDBContext db = new PlanDBContext();
-        List<Plan> listPlan = db.getPlans();
-
-        request.setAttribute("listPlan", listPlan);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
-    }
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -53,7 +29,8 @@ public class listPlan extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getSession().setAttribute("user", null);
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 
     /**
@@ -67,7 +44,8 @@ public class listPlan extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getSession().setAttribute("user", null);
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 
     /**

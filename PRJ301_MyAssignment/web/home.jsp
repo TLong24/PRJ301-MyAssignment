@@ -26,22 +26,33 @@
                 background-color: #4CAF50;
                 color: white;
                 padding: 15px;
-                text-align: center;
+                display: flex;
+                align-items: center;
                 position: relative;
             }
-            .header .nav {
-                position: absolute;
-                top: 50%;
-                right: 50px;
-                transform: translateY(-50%);
-                display: flex;
-                gap: 15px;
+
+            .header .title {
+                flex: 1;
+                text-align: center;
+                margin: 0;
             }
+
+            .header .nav.left {
+                position: absolute;
+                left: 20px;
+            }
+
+            .header .nav.right {
+                position: absolute;
+                right: 20px;
+            }
+
             .header .nav a {
                 color: white;
                 text-decoration: none;
                 font-weight: bold;
             }
+
             .header .nav a:hover {
                 text-decoration: underline;
             }
@@ -100,19 +111,26 @@
                 width: 100%;
                 overflow-x: auto;
             }
+
         </style>
+
+
     </head>
     <body>
         <div class="header">
-            <h1>Welcome to the Home Page</h1>
-            <div class="nav">
+            <div class="nav left">
                 <a href="PlanCampaignController" class="action">View Campaign</a>
             </div>
+            <h1 class="title">Welcome to the Home Page</h1>
+            <div class="nav right">
+                <a href="logout" class="action">Logout</a>
+            </div>
         </div>
+
         <div class="content">
             <div class="action-buttons">
                 <a href="plan/create" class="action-button">Add</a>
-                <a href="search.jsp" class="action-button">Search</a>
+                <a href="searchPlan" class="action-button">Search</a>
                 <a href="updatePlan" class="action-button">Update</a>
             </div>
             <div class="table-container">
