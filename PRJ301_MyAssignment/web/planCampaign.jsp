@@ -95,6 +95,8 @@
         <div class="header">
             <h1>Plan Campaign List</h1>
         </div>
+       
+
         <div class="table-container">
             <table>
                 <thead>
@@ -124,6 +126,11 @@
                 </tbody>
             </table>
         </div>
+        <c:if test="${not empty alertMessage}">
+            <script type="text/javascript">
+                alert("${requestScope.alertMessage}");
+            </script>
+        </c:if>
 
         <style>
             /* Styling for action buttons */

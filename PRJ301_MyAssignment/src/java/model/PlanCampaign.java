@@ -13,12 +13,12 @@ public class PlanCampaign {
     private Plan plan;
     private Product product;
     private Integer quantity;
-    private Float estimatedeffort;
+    private Integer estimatedeffort;
 
     public PlanCampaign() {
     }
 
-    public PlanCampaign(Integer camid, Plan plan, Product product, Integer quantity, Float estimatedeffort) {
+    public PlanCampaign(Integer camid, Plan plan, Product product, Integer quantity, Integer estimatedeffort) {
         this.camid = camid;
         this.plan = plan;
         this.product = product;
@@ -58,14 +58,12 @@ public class PlanCampaign {
         this.quantity = quantity;
     }
 
-    public Float getEstimatedeffort() {
+    public Integer getEstimatedeffort() {
         return estimatedeffort;
     }
 
-    public void setEstimatedeffort(Float estimatedeffort) {
+    public void setEstimatedeffort(Integer estimatedeffort) {
         this.estimatedeffort = estimatedeffort;
     }
-
-    
     
 }

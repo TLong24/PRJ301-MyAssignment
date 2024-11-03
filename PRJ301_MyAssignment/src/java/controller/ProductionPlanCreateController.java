@@ -134,9 +134,9 @@ public class ProductionPlanCreateController extends HttpServlet {
             }
 
             try {
-                c.setEstimatedeffort(raw_effort != null && !raw_effort.isBlank() ? Float.parseFloat(raw_effort) : 0);
+                c.setEstimatedeffort(raw_effort != null && !raw_effort.isBlank() ? Integer.parseInt(raw_effort) : 0);
             } catch (NumberFormatException e) {
-                c.setEstimatedeffort(Float.valueOf(0));
+                c.setEstimatedeffort(0);
             }
 
             c.setPlan(plan);

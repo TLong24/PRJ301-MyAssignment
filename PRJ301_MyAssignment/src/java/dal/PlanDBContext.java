@@ -194,7 +194,7 @@ public class PlanDBContext extends DBContext<Plan> {
     }
 
     @Override
-    public void delete(Plan model) {
+    public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

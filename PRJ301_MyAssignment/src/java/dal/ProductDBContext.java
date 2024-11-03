@@ -30,7 +30,7 @@ public class ProductDBContext extends DBContext<Product> {
     }
 
     @Override
-    public void delete(Product model) {
+    public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -23,11 +23,27 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
 
     @Override
     public void update(PlanCampaign model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "UPDATE [dbo].[PlanCampaign] SET\n"
+                + "      [plid] = ?\n"
+                + "      ,[pid] = ?\n"
+                + "      ,[quantity] = ?\n"
+                + "      ,[estimatedeffort] = ?\n"
+                + "  WHERE [camid] = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, model.getPlan().getPlId());
+            stm.setInt(2, model.getProduct().getPid());
+            stm.setInt(3, model.getQuantity());
+            stm.setFloat(4, model.getEstimatedeffort());
+            stm.setInt(5, model.getCamid());
+
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public void delete(PlanCampaign model) {
+    public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -59,7 +75,7 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
                 campaign.setProduct(pro);
 
                 campaign.setQuantity(rs.getInt("quantity"));
-                campaign.setEstimatedeffort(rs.getFloat("estimatedeffort"));
+                campaign.setEstimatedeffort(rs.getInt("estimatedeffort"));
 
                 campaigns.add(campaign);
             }
@@ -76,15 +92,37 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
 
     @Override
     public PlanCampaign get(int camid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        PlanCampaign campaign = null;
+        String sql = "SELECT [camid]\n"
+                + "      ,[plid]\n"
+                + "      ,[pid]\n"
+                + "      ,[quantity]\n"
+                + "      ,[estimatedeffort]\n"
+                + "  FROM [dbo].[PlanCampaign]\n"
+                + "  WHERE [camid] = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, camid);
+            ResultSet rs = stm.executeQuery();
 
-    public static void main(String[] args) {
-        PlanCampaignDBContext d = new PlanCampaignDBContext();
-        ArrayList<PlanCampaign> n = d.list();
-        for (PlanCampaign p : n) {
-            System.out.println(p.getCamid());
+            if (rs.next()) {
+                campaign = new PlanCampaign();
+                campaign.setCamid(rs.getInt("camid"));
+
+                Plan plan = new Plan();
+                plan.setPlId(rs.getInt("plid"));
+                campaign.setPlan(plan);
+
+                Product product = new Product();
+                product.setPid(rs.getInt("pid"));
+                campaign.setProduct(product);
+
+                campaign.setQuantity(rs.getInt("quantity"));
+                campaign.setEstimatedeffort(rs.getInt("estimatedeffort"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        return campaign;
     }
 
 }
