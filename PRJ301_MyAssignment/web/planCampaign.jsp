@@ -60,6 +60,34 @@
                 background-color: #f1f1f1;
             }
         </style>
+        <style>
+            /* Styling for action buttons */
+            .action-button {
+                padding: 5px 10px;
+                border: none;
+                text-decoration: none;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .edit-button {
+                background-color: #4CAF50; /* Green */
+            }
+
+            .edit-button:hover {
+                background-color: #45a049;
+            }
+
+            .delete-button {
+                background-color: #f44336; /* Red */
+            }
+
+            .delete-button:hover {
+                background-color: #e53935;
+            }
+        </style>
     </head>
     <!--    <body>
             <div class="header">
@@ -132,33 +160,5 @@
             </script>
         </c:if>
 
-        <style>
-            /* Styling for action buttons */
-            .action-button {
-                padding: 5px 10px;
-                border: none;
-                text-decoration: none;
-                border-radius: 5px;
-                color: white;
-                font-weight: bold;
-                cursor: pointer;
-            }
-
-            .edit-button {
-                background-color: #4CAF50; /* Green */
-            }
-
-            .edit-button:hover {
-                background-color: #45a049;
-            }
-
-            .delete-button {
-                background-color: #f44336; /* Red */
-            }
-
-            .delete-button:hover {
-                background-color: #e53935;
-            }
-        </style>
     </body>
 </html>

@@ -44,7 +44,18 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM [dbo].[PlanCampaign] WHERE [camid] = ?";
+        try (
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+            }
+        }
     }
 
     @Override

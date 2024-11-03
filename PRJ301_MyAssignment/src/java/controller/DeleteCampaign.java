@@ -59,7 +59,9 @@ public class DeleteCampaign extends HttpServlet {
         PlanCampaignDBContext db = new PlanCampaignDBContext();
         db.delete(camid);
 
-        response.getWriter().println("Delete campaign completed!");
+        request.setAttribute("alertMessage", "Updated successfully");
+
+        request.getRequestDispatcher("/PlanCampaignController").forward(request, response);
     } 
 
     /** 
